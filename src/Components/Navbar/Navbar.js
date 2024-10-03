@@ -50,30 +50,34 @@ function Navbar() {
       {/* Unordered list for navigation links */}
       <ul className="nav__links active">
         <li className="link">
-          <Link to="/">Home</Link> {/* Use Link for navigation */}
+          <Link to="/">Home</Link>
         </li>
         <li className="link">
-          <Link to="/appointments">Appointments</Link> {/* Placeholder link */}
+          <Link to="/appointments">Appointments</Link>
+        </li>
+        <li className="link">
+          <Link to="/instant-consultation">
+            <button className="btn1">Instant Booking</button> {/* Button for instant consultation */}
+          </Link>
         </li>
 
-        {/* Conditionally show the user's name and logout button if authenticated, otherwise show Sign Up/Login */}
         {auth ? (
           <>
-            <li className="link">Welcome, {auth.userName}</li> {/* Show user's name */}
+            <li className="link">Welcome, {auth.userName}</li>
             <li className="link">
-              <button className="btn1" onClick={logout}>Logout</button> {/* Logout button */}
+              <button className="btn1" onClick={logout}>Logout</button>
             </li>
           </>
         ) : (
           <>
             <li className="link">
               <Link to="/signup">
-                <button className="btn1">Sign Up</button> {/* Use Link for Sign Up navigation */}
+                <button className="btn1">Sign Up</button>
               </Link>
             </li>
             <li className="link">
               <Link to="/login">
-                <button className="btn1">Login</button> {/* Use Link for Login navigation */}
+                <button className="btn1">Login</button>
               </Link>
             </li>
           </>

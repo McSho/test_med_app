@@ -67,7 +67,7 @@ const Login = () => {
           <div className="login-text">
             Are you a new member? 
             <span>
-              <Link to="/signup" style={{ color: '#2190FF' }}>
+              <Link to="/signup" style={{ color: '#58d86a' }}>
                 Sign Up Here
               </Link>
             </span>

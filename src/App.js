@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Import Instant Conslutation component
-import InstantConsultation from './Components/InstantConsultation/InstantConsultationn
+import InstantConsultation from './Components/InstantConsultation/InstantConsultation'
 
 // Import components for routing from react-router-dom library
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -34,6 +34,8 @@ function App() {
         <Routes>
           {/* Define the route for the LandingPage component */}
           <Route path="/" element={<LandingPage />} />
+
+          <Route path="/instant-consultation" element={<InstantConsultation />} />
           
           {/* Define the route for the SignUp component */}
           <Route path="/signup" element={<SignUp />} />
