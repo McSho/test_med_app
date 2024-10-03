@@ -10,6 +10,12 @@ import Navbar from './Components/Navbar/Navbar';
 // Import the LandingPage component
 import LandingPage from './Components/Landing_Page/Landing_Page'; // Ensure the correct import path
 
+// Import the SignUp component
+import SignUp from './Components/Sign_Up/Sign_Up'; // Ensure the correct import path
+
+//Import the Login component
+import Login from './Components/Login/Login';
+
 // Function component for the main App
 function App() {
 
@@ -25,6 +31,10 @@ function App() {
         <Routes>
           {/* Define the route for the LandingPage component */}
           <Route path="/" element={<LandingPage />} />
+          
+          {/* Define the route for the SignUp component */}
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} /> {/* Route for Login component */}
         </Routes>
       </BrowserRouter>
     </div>
