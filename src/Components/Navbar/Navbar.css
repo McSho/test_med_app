@@ -46,7 +46,7 @@ nav {
 .dropdown-menu li {
     display: block;
     width: 150px;
-    padding:5px;
+    padding: 5px;
 }
 
 /* Styling for links in the dropdown menu */
@@ -100,7 +100,28 @@ nav {
 
 /* Hover effect for individual links in the navigation */
 .link a:hover {
-    color: #3685fb;
+    color: #58d86a;
+}
+
+/* Styling the logo container for image and text */
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the image and text */
+}
+
+/* Styling for the logo image */
+.nav-logo-image {
+    height: 80px; /* Increase the height of the logo */
+    width: auto;  /* Keep the aspect ratio */
+}
+
+/* Styling for the text below the logo */
+.nav-logo-text {
+    font-size: 20px; /* Adjust the size of the text */
+    color: #58d86a;  /* Set the text color */
+    margin-top: 5px; /* Add space between the logo and the text */
+    text-align: center; /* Center-align the text */
 }
 
 /* Media queries for mobile responsiveness */
@@ -152,31 +173,30 @@ nav {
 
 /* Button styles */
 .btn1 {
-    border: 2px solid #3685fb;
+    border: 2px solid #58d86a;
     background-color: white;
     color: black;
     border-radius: 50px;
 }
 
 .btn1:hover {
-    background-color: #3685fb; /* Hover effect */
+    background-color: #58d86a; /* Hover effect */
     color: white; /* Hover effect */
 }
 
 .btn2 {
-    border: 2px solid #3685fb;
+    border: 2px solid #58d86a;
     background-color: white;
     color: black;
     border-radius: 50px;
-    height:30px;
-    display:flex; /* Align items and justify content */
-    align-items:center; /* Align items and justify content */
-    justify-content:center; /* Align items and justify content */
-    margin-top:3px; /* Margin from top */
+    height: 30px;
+    display: flex; /* Align items and justify content */
+    align-items: center; /* Align items and justify content */
+    justify-content: center; /* Align items and justify content */
+    margin-top: 3px; /* Margin from top */
 }
 
 .btn2:hover {
-    background-color:#3685fb; /* Hover effect */
-    color:white; /* Hover effect */
+    background-color: #3685fb; /* Hover effect */
+    color: white; /* Hover effect */
 }
-  

@@ -109,9 +109,8 @@ const Login = () => {
 
               {/* Submit button */}
               <div className="btn-group">
-                <button type="submit" className="btn btn-primary mb-2 mr-1 waves-effect waves-light">
-                  Login
-                </button>
+                <button type="submit" className="btn btn-primary mb-2 mr-1 waves-effect waves-light">Login</button>
+                <button type="reset" className="btn btn-danger mb-2">Reset</button>
               </div>
             </form>
           </div>

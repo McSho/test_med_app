@@ -125,16 +125,15 @@ const Sign_Up = () => {
                                 required
                             />
                         </div>
-
-                        {/* Submit Button */}
-                        <div className="btn-group">
-                            <button type="submit" className="btn btn-primary mb-2">Submit</button>
-                        </div>
-                    </form>
-                </div>
+            <div className="btn-group">
+              <button type="submit" className="btn btn-primary mb-2">Sign Up</button>
+              <button type="reset" className="btn btn-danger mb-2">Reset</button> {/* Reset button */}
             </div>
+          </form>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Sign_Up;

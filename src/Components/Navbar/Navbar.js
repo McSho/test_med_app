@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Navbar.css'; // Import CSS for styling
 import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate from react-router-dom for internal navigation
+import logo from '../../Assets/logo.jpg';
 
 function Navbar() {
   const [auth, setAuth] = useState(null); // State to manage authentication and user info
@@ -33,14 +34,13 @@ function Navbar() {
     <nav>
       {/* Navigation logo section */}
       <div className="nav__logo">
-        <Link to="/"> {/* Use Link instead of <a> for internal navigation */}
-          StayHealthy
-          <svg xmlns="http://www.w3.org/2000/svg" height="26" width="26" viewBox="0 0 1000 1000" style={{ fill: '#3685fb' }}>
-            {/* SVG icon content */}
-          </svg>
-        </Link>
-        <span>.</span>
-      </div>
+        <a href="/">
+          <div className="logo-container">
+            <img src={logo} alt="StayHealthy Logo" className="nav-logo-image" />
+            <p className="nav-logo-text">Stay Healthy</p>
+          </div>
+        </a>
+       </div>
 
       {/* Navigation icon section */}
       <div className="nav__icon" onClick={handleClick}>
