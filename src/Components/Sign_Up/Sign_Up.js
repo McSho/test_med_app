@@ -1,127 +1,140 @@
+// Import necessary hooks and modules
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Sign_Up.css'; // Importing CSS
+import './Sign_Up.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config'; // Assuming you have this configured properly
 
-function SignUp() {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    password: '',
-    role: ''
-  });
+const Sign_Up = () => {
+    // State variables for form inputs
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [showerr, setShowerr] = useState(''); // For showing error messages
+    const navigate = useNavigate(); // For navigation
 
-  const [errors, setErrors] = useState({});
+    // Function to handle form submission
+    const register = async (e) => {
+        e.preventDefault(); // Prevent page refresh
 
-  // Handle form field changes
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+        // API call to register the user
+        const response = await fetch(`${API_URL}/api/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+                phone: phone,
+            }),
+        });
 
-  // Validate the form on submit
-  const validateForm = () => {
-    let formErrors = {};
+        const json = await response.json(); // Parse response
 
-    // Name validation
-    if (!formData.name) {
-      formErrors.name = 'Name is required';
-    }
+        if (json.authtoken) {
+            // Save user data in session storage
+            sessionStorage.setItem('auth-token', json.authtoken);
+            sessionStorage.setItem('name', name);
+            sessionStorage.setItem('phone', phone);
+            sessionStorage.setItem('email', email);
 
-    // Phone number validation
-    const phoneRegex = /^\d{0,10}$/;
-    if (!phoneRegex.test(formData.phone)) {
-      formErrors.phone = 'Phone number must not exceed 10 digits';
-    }
+            // Redirect to home page
+            navigate('/');
+            window.location.reload(); // Reload the page
+        } else {
+            if (json.errors) {
+                // Show error messages if any
+                for (const error of json.errors) {
+                    setShowerr(error.msg);
+                }
+            } else {
+                setShowerr(json.error);
+            }
+        }
+    };
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      formErrors.email = 'Invalid email format';
-    }
+    return (
+        <div className="container" style={{ marginTop: '5%' }}>
+            <div className="signup-grid">
+                <div className="signup-form">
+                    {/* Form starts here */}
+                    <form method="POST" onSubmit={register}>
+                        {/* Name Field */}
+                        <div className="form-group">
+                            <label htmlFor="name">Name</label>
+                            <input 
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                type="text"
+                                name="name"
+                                id="name"
+                                className="form-control"
+                                placeholder="Enter your name"
+                                aria-describedby="helpId"
+                                required
+                            />
+                        </div>
 
-    // Password validation
-    if (!formData.password) {
-      formErrors.password = 'Password is required';
-    }
+                        {/* Phone Field */}
+                        <div className="form-group">
+                            <label htmlFor="phone">Phone</label>
+                            <input 
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                type="tel"
+                                name="phone"
+                                id="phone"
+                                className="form-control"
+                                placeholder="Enter your phone number"
+                                aria-describedby="helpId"
+                                required
+                            />
+                        </div>
 
-    // Role validation
-    if (!formData.role) {
-      formErrors.role = 'Role is required';
-    }
+                        {/* Email Field */}
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
+                            <input 
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                type="email"
+                                name="email"
+                                id="email"
+                                className="form-control"
+                                placeholder="Enter your email"
+                                aria-describedby="helpId"
+                                required
+                            />
+                            {showerr && <div className="err" style={{ color: 'red' }}>{showerr}</div>}
+                        </div>
 
-    return formErrors;
-  };
+                        {/* Password Field */}
+                        <div className="form-group">
+                            <label htmlFor="password">Password</label>
+                            <input 
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                type="password"
+                                name="password"
+                                id="password"
+                                className="form-control"
+                                placeholder="Enter your password"
+                                aria-describedby="helpId"
+                                required
+                            />
+                        </div>
 
-  // Handle form submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formErrors = validateForm();
-    if (Object.keys(formErrors).length === 0) {
-      // No errors, submit the form (you can integrate API here)
-      console.log('Form submitted successfully!', formData);
-    } else {
-      setErrors(formErrors);
-    }
-  };
-
-  return (
-    <div className="container" style={{ marginTop: '5%' }}>
-      <div className="signup-grid">
-        <div className="signup-text">
-          <h1>Sign Up</h1>
+                        {/* Submit Button */}
+                        <div className="btn-group">
+                            <button type="submit" className="btn btn-primary mb-2">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div className="signup-text1" style={{ textAlign: 'left' }}>
-          Already a member? <span><Link to="/login" style={{ color: '#58d86a' }}>Login</Link></span>
-        </div>
-        <div className="signup-form">
-          <form onSubmit={handleSubmit}>
-            {/* Role Field */}
-            <div className="form-group">
-              <label htmlFor="role">Role</label>
-              <select name="role" id="role" value={formData.role} onChange={handleChange} className="form-control" required>
-                <option value="">Select your role</option>
-                <option value="doctor">Doctor</option>
-                <option value="patient">Patient</option>
-              </select>
-              {errors.role && <p className="error">{errors.role}</p>}
-            </div>
-            {/* Name Field */}
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} className="form-control" placeholder="Enter your name" />
-              {errors.name && <p className="error">{errors.name}</p>}
-            </div>
-            {/* Phone Number Field */}
-            <div className="form-group">
-              <label htmlFor="phone">Phone</label>
-              <input type="tel" name="phone" id="phone" value={formData.phone} onChange={handleChange} className="form-control" placeholder="Enter your phone number" />
-              {errors.phone && <p className="error">{errors.phone}</p>}
-            </div>
-            {/* Email Field */}
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} className="form-control" placeholder="Enter your email" />
-              {errors.email && <p className="error">{errors.email}</p>}
-            </div>
-            {/* Password Field */}
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" name="password" id="password" value={formData.password} onChange={handleChange} className="form-control" placeholder="Enter your password" />
-              {errors.password && <p className="error">{errors.password}</p>}
-            </div>
-            {/* Submit and Reset Buttons */}
-            <div className="btn-group">
-              <button type="submit" className="btn btn-primary mb-2">Submit</button>
-              <button type="reset" className="btn btn-danger mb-2" onClick={() => setFormData({ name: '', phone: '', email: '', password: '', role: '' })}>Reset</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-}
+    );
+};
 
-export default SignUp;
+export default Sign_Up;
