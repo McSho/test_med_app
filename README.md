@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# StayHealthy Inc. - Go Digital Initiative
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Overview
 
-## Available Scripts
+StayHealthy Inc. is a non-profit organization focused on improving healthcare access in remote areas. As part of their **Go Digital Initiative**, the organization aims to provide a user-friendly platform for patients to connect with doctors online. This project involves designing and developing a responsive website for the initiative.
 
-In the project directory, you can run:
+### Problem Statement
 
-### `npm start`
+The **StayHealthy** survey revealed a severe lack of accessible healthcare in remote areas, with patients unable to find the right doctor at the right time. Through this project, StayHealthy aims to bridge this gap by leveraging increased internet availability in these areas. The website will allow patients to access general physicians and specialists for medical appointments and consultations in real-time.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Project Goals
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The primary goal is to create a platform that connects patients with doctors seamlessly. The first phase focuses on the following features:
+- **Medical Appointments Online**: Patients can schedule appointments, view available time slots, and modify bookings.
+- **Doctor Listings**: Display a list of doctors, along with their ratings and availability.
+- **Consultation Feedback**: Allow patients to provide feedback on consultations.
+- **Profile Management**: Users can sign up, update personal details, and manage medical records.
+- **Navigation**: The website must be intuitive, ensuring ease of access with minimal clicks.
 
-### `npm test`
+## Features (Phase 1)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Medical appointments online**: 
+  - Patients can schedule appointments and view available time slots.
+  - Option for patients to receive reminders about upcoming appointments.
+  - Ability to cancel or modify appointments.
+  
+- **Doctor listing for patients**:
+  - Display a list of doctors, including ratings and reviews.
+  - Allow users to search for doctors by name.
 
-### `npm run build`
+- **Consultation feedback**:
+  - Patients can rate consultations on factors like diagnosis and communication.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Profile management**:
+  - Patients must sign up and provide personal details to make appointments.
+  - Option to update profile information.
+  
+- **Navigation**:
+  - Simple, intuitive navigation to ensure ease of use.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technical Overview
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The project will be developed using **React** for the frontend with features implemented in different phases. The first phase involves building static and responsive pages, followed by their dynamic functionality.
 
-### `npm run eject`
+### Tools and Libraries
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Figma**: Used for UI/UX design and wireframing.
+- **ReactJS**: The core technology used for front-end development.
+- **HTML & CSS**: For structuring and styling the web pages.
+- **React Router**: Used for implementing dynamic routing within the single-page application.
+- **reactjs-popup**: A library for creating modals, menus, and tooltips.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Core Concepts
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### 1. **React Router**:
+   - Enables client-side routing and page transitions without refreshing.
+   - Used to navigate between different components/pages.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### 2. **Event Handlers**:
+   - **onFocus** and **onBlur** event handlers will be used for user interaction on input fields and forms.
+   - These event handlers are implemented in key components like the Appointment Booking and Reviews Components.
 
-## Learn More
+#### 3. **ES7+ React/Redux Snippets**:
+   - Helps with code efficiency using the latest JavaScript (ES7+) syntax.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### 4. **reactjs-popup Library**:
+   - A versatile library used to create modals, menus, and tooltips for a rich user experience.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Hands-On Labs Implemented:
 
-### Code Splitting
+- **Convert Static Pages to Dynamic React Components**: Uses React Router and ES7+ snippets for efficiency.
+- **Build the Appointment Booking Component**: Includes event handlers like `onFocus` and `onBlur` for better user experience.
+- **Build the Reviews Component**: Allows patients to provide feedback on consultations.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Project Setup and Deployment
 
-### Analyzing the Bundle Size
+### Installation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/StayHealthy-Project.git
+   cd StayHealthy-Project
+   npm install
+   npm start
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Breakdown of Sections:
+- **Project Overview**: Describes the goals of the project and the problem it solves.
+- **Features**: Lists the core functionalities required for the first phase of the project.
+- **Technical Overview**: Summarizes the key technologies, libraries, and tools used.
+- **Hands-On Labs Implemented**: Mention which specific labs are connected to your development work.
+- **Project Setup and Deployment**: Provides installation steps and deployment options.
+- **Future Enhancements**: Highlights features to be implemented in the next phases.
