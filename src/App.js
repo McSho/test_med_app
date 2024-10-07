@@ -19,6 +19,8 @@ import SignUp from './Components/Sign_Up/Sign_Up'; // Ensure the correct import 
 //Import the Login component
 import Login from './Components/Login/Login';
 
+import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch';
+
 // Function component for the main App
 function App() {
 
@@ -36,6 +38,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
 
           <Route path="/instant-consultation" element={<InstantConsultation />} />
+          <Route path="/find-doctor-search" element={<FindDoctorSearch />} />
           
           {/* Define the route for the SignUp component */}
           <Route path="/signup" element={<SignUp />} />

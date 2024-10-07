@@ -40,7 +40,7 @@ function Navbar() {
             <p className="nav-logo-text">Stay Healthy</p>
           </div>
         </a>
-       </div>
+      </div>
 
       {/* Navigation icon section */}
       <div className="nav__icon" onClick={handleClick}>
@@ -54,6 +54,11 @@ function Navbar() {
         </li>
         <li className="link">
           <Link to="/appointments">Appointments</Link>
+        </li>
+        <li className="link">
+          <Link to="/find-doctor-search"> {/* New button for Find a Doctor */}
+            <button className="btn1">Find a Doctor</button>
+          </Link>
         </li>
         <li className="link">
           <Link to="/instant-consultation">
