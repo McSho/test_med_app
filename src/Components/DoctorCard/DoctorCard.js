@@ -13,8 +13,14 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
   const handleFormSubmit = (appointmentData) => {
     const newAppointment = {
       id: uuidv4(),  // Generate a unique ID for the appointment
-      ...appointmentData
+      doctorName: name, // Add doctor's name
+      speciality: speciality, // Add speciality
+      ...appointmentData // Add the rest of the form data
     };
+  
+    // Save the appointment in localStorage
+    localStorage.setItem('doctorData', JSON.stringify(newAppointment));
+  
     setAppointments([...appointments, newAppointment]);
     setShowModal(false);  // Close the modal after booking
   };

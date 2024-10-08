@@ -1,5 +1,5 @@
 // Import necessary modules from React library
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Import Instant Consultation component
 import InstantConsultation from './Components/InstantConsultation/InstantConsultation';
@@ -19,37 +19,59 @@ import SignUp from './Components/Sign_Up/Sign_Up'; // Ensure the correct import 
 // Import the Login component
 import Login from './Components/Login/Login';
 
-// Import the FindDoctorSearch component
+// Import FindDoctorSearch component
 import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch';
 
-// Import the BookingConsultation component
-import BookingConsultation from './Components/BookingConsultation';  // Add this line
+// Import the Notification component
+import Notification from './Components/Notification/Notification';
 
-// Function component for the main App
+// Import CSS for Notification (make sure Notification.css exists in the correct path)
+import './Components/Notification/Notification.css';
+
 function App() {
+  // State to track whether an appointment is booked
+  const [appointmentBooked, setAppointmentBooked] = useState(false);
 
-  // Render the main App component
+  // Use useEffect to check localStorage on initial render
+  useEffect(() => {
+    // Check if there is appointment data stored in localStorage
+    const storedAppointment = localStorage.getItem('doctorData');
+    if (storedAppointment) {
+      setAppointmentBooked(true); // Set the appointment booked to true if data exists
+    }
+  }, []);
+
+  // Function to handle appointment cancellation
+  const handleCancelAppointment = () => {
+    localStorage.removeItem('doctorData'); // Remove appointment from localStorage
+    setAppointmentBooked(false); // Update state to hide the notification
+  };
+
   return (
     <div className="App">
       {/* Set up BrowserRouter for routing */}
       <BrowserRouter>
         {/* Display the Navbar component */}
-        <Navbar/>
+        <Navbar />
+
+        {/* Conditionally render the Notification if an appointment is booked */}
+        {appointmentBooked && (
+          <Notification onCancel={handleCancelAppointment} />
+        )}
 
         {/* Set up the Routes for different pages */}
         <Routes>
           {/* Define the route for the LandingPage component */}
           <Route path="/" element={<LandingPage />} />
-
+          
           <Route path="/instant-consultation" element={<InstantConsultation />} />
           <Route path="/find-doctor-search" element={<FindDoctorSearch />} />
-          
-          {/* Define the route for BookingConsultation */}
-          <Route path="/booking-consultation" element={<BookingConsultation />} />  {/* New Route for Booking Consultation */}
 
           {/* Define the route for the SignUp component */}
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} /> {/* Route for Login component */}
+          
+          {/* Route for Login component */}
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>

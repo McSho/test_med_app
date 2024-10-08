@@ -8,13 +8,11 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
   const [selectedSlot, setSelectedSlot] = useState('');
   const [errors, setErrors] = useState({});
 
-  // Helper function to get today's date in yyyy-mm-dd format
   const getTodayDate = () => {
     const today = new Date();
     return today.toISOString().split('T')[0];
   };
 
-  // Validate if the selected appointment time is within the selected time slot
   const validateTimeSlot = (time, slot) => {
     const [hours, minutes] = time.split(':');
     const timeInMinutes = parseInt(hours) * 60 + parseInt(minutes);
@@ -31,34 +29,50 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
     }
   };
 
-  // Handle form submission with validation
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
     let formErrors = {};
 
-    // Check if the date is not in the past
     if (appointmentDate < getTodayDate()) {
       formErrors.appointmentDate = 'Appointment date cannot be in the past.';
     }
 
-    // Check if the time matches the selected slot
     if (!validateTimeSlot(appointmentTime, selectedSlot)) {
       formErrors.appointmentTime = `Appointment time must be within the ${selectedSlot} slot.`;
     }
 
-    // If there are any errors, set them to the state
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
     } else {
-      // If no errors, submit the form data and clear the fields
-      onSubmit({ name, phoneNumber, appointmentDate, appointmentTime, selectedSlot });
-      setName('');
-      setPhoneNumber('');
-      setAppointmentDate('');
-      setAppointmentTime('');
-      setSelectedSlot('');
-      setErrors({});
+      const appointmentDetails = {
+        name, // User's name
+        phoneNumber, // User's phone number
+        doctorName: doctorName,  // Doctor's name
+        speciality: doctorSpeciality,  // Doctor's speciality
+        date: appointmentDate,  // Appointment Date
+        time: appointmentTime,  // Appointment Time
+        slot: selectedSlot, // Time Slot (Morning, Afternoon, Evening)
+      };
+
+      // Store appointment details in localStorage
+      localStorage.setItem('appointmentData', JSON.stringify({
+        name,
+        phoneNumber,
+        date: appointmentDate,
+        time: appointmentTime,
+        slot: selectedSlot,
+      }));
+  
+      // Store doctor details in localStorage
+      localStorage.setItem('doctorData', JSON.stringify({
+        name: doctorName,
+        speciality: doctorSpeciality,
+      }));
+
+      // Optionally trigger a callback to notify the parent component
+      if (onSubmit) {
+        onSubmit(appointmentDetails);
+      }
     }
   };
 
@@ -94,7 +108,7 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
           type="date"
           id="appointmentDate"
           value={appointmentDate}
-          min={getTodayDate()}  // Set min date to today
+          min={getTodayDate()}
           onChange={(e) => setAppointmentDate(e.target.value)}
           required
         />
