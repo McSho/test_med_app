@@ -1,8 +1,8 @@
 // Import necessary modules from React library
 import React from 'react';
 
-// Import Instant Conslutation component
-import InstantConsultation from './Components/InstantConsultation/InstantConsultation'
+// Import Instant Consultation component
+import InstantConsultation from './Components/InstantConsultation/InstantConsultation';
 
 // Import components for routing from react-router-dom library
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -16,10 +16,14 @@ import LandingPage from './Components/Landing_Page/Landing_Page'; // Ensure the 
 // Import the SignUp component
 import SignUp from './Components/Sign_Up/Sign_Up'; // Ensure the correct import path
 
-//Import the Login component
+// Import the Login component
 import Login from './Components/Login/Login';
 
+// Import the FindDoctorSearch component
 import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch';
+
+// Import the BookingConsultation component
+import BookingConsultation from './Components/BookingConsultation';  // Add this line
 
 // Function component for the main App
 function App() {
@@ -40,6 +44,9 @@ function App() {
           <Route path="/instant-consultation" element={<InstantConsultation />} />
           <Route path="/find-doctor-search" element={<FindDoctorSearch />} />
           
+          {/* Define the route for BookingConsultation */}
+          <Route path="/booking-consultation" element={<BookingConsultation />} />  {/* New Route for Booking Consultation */}
+
           {/* Define the route for the SignUp component */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} /> {/* Route for Login component */}
