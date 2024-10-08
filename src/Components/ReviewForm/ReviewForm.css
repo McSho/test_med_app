@@ -1,0 +1,46 @@
+.review-container {
+  margin: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Add this to ensure the review form is not hidden under the navbar */
+.review-form, .review-table {
+    margin-top: 100px;  /* Adjust this value based on your navbar height */
+    position: relative;
+    z-index: 1;  /* Ensure the content is above the navbar */
+  }
+
+.review-table th, 
+.review-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.review-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.review-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.feedback-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.feedback-btn:hover {
+  background-color: #0056b3;
+}

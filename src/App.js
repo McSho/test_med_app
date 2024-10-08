@@ -28,6 +28,9 @@ import Notification from './Components/Notification/Notification';
 // Import CSS for Notification (make sure Notification.css exists in the correct path)
 import './Components/Notification/Notification.css';
 
+//Import the ReviewForm component
+import ReviewForm from './Components/ReviewForm/ReviewForm';
+
 function App() {
   // State to track whether an appointment is booked
   const [appointmentBooked, setAppointmentBooked] = useState(false);
@@ -66,6 +69,7 @@ function App() {
           
           <Route path="/instant-consultation" element={<InstantConsultation />} />
           <Route path="/find-doctor-search" element={<FindDoctorSearch />} />
+          <Route path="/reviews" element={<ReviewForm />} />
 
           {/* Define the route for the SignUp component */}
           <Route path="/signup" element={<SignUp />} />
