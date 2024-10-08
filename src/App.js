@@ -51,7 +51,7 @@ function App() {
     <div className="App">
       {/* Set up BrowserRouter for routing */}
       <BrowserRouter>
-        {/* Display the Navbar component */}
+        {/* Always render the Navbar */}
         <Navbar />
 
         {/* Conditionally render the Notification if an appointment is booked */}
@@ -59,7 +59,7 @@ function App() {
           <Notification onCancel={handleCancelAppointment} />
         )}
 
-        {/* Set up the Routes for different pages */}
+        {/* Wrap Routes inside BrowserRouter */}
         <Routes>
           {/* Define the route for the LandingPage component */}
           <Route path="/" element={<LandingPage />} />
