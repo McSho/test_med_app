@@ -21,7 +21,7 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
       case 'Morning':
         return timeInMinutes >= 480 && timeInMinutes <= 720;  // 8am - 12pm
       case 'Afternoon':
-        return timeInMinutes > 720 && timeInMinutes <= 960;  // 12pm - 4pm
+        return timeInMinutes > 720 && timeInMinutes <= 960;   // 12pm - 4pm
       case 'Evening':
         return timeInMinutes > 960 && timeInMinutes <= 1200;  // 4pm - 8pm
       default:
@@ -45,31 +45,31 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
       setErrors(formErrors);
     } else {
       const appointmentDetails = {
-        name, // User's name
-        phoneNumber, // User's phone number
-        doctorName: doctorName,  // Doctor's name
-        speciality: doctorSpeciality,  // Doctor's speciality
-        date: appointmentDate,  // Appointment Date
-        time: appointmentTime,  // Appointment Time
-        slot: selectedSlot, // Time Slot (Morning, Afternoon, Evening)
-      };
-
-      // Store appointment details in localStorage
-      localStorage.setItem('appointmentData', JSON.stringify({
         name,
         phoneNumber,
-        date: appointmentDate,
-        time: appointmentTime,
-        slot: selectedSlot,
-      }));
-  
-      // Store doctor details in localStorage
+        doctorName,  // Ensure proper doctor name
+        speciality: doctorSpeciality,
+        appointmentDate,
+        appointmentTime,
+        selectedSlot,
+      };
+
+      // Correctly store doctor details
       localStorage.setItem('doctorData', JSON.stringify({
-        name: doctorName,
+        doctorName,  // Store doctorName properly
         speciality: doctorSpeciality,
       }));
 
-      // Optionally trigger a callback to notify the parent component
+      // Store appointment details properly
+      localStorage.setItem('appointmentData', JSON.stringify({
+        name,
+        phoneNumber,
+        appointmentDate,
+        appointmentTime,
+        selectedSlot,
+      }));
+
+      // Trigger notification to appear after booking
       if (onSubmit) {
         onSubmit(appointmentDetails);
       }

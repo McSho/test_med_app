@@ -18,12 +18,18 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
       ...appointmentData // Add the rest of the form data
     };
   
-    // Save the appointment in localStorage
-    localStorage.setItem('doctorData', JSON.stringify(newAppointment));
-  
+    // Save the appointment in localStorage, ensuring doctorData has correct details
+    localStorage.setItem('doctorData', JSON.stringify({
+      doctorName: name,  // Correct doctor name
+      speciality: speciality
+    }));
+    
+    // Store the entire appointment, including patient details
+    localStorage.setItem('appointmentData', JSON.stringify(newAppointment));
+
     setAppointments([...appointments, newAppointment]);
     setShowModal(false);  // Close the modal after booking
-  };
+    };
 
   // Function to handle appointment cancellation
   const handleCancelAppointment = (appointmentId) => {
@@ -45,7 +51,7 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
           <div className="doctor-card-detail-name">{name}</div>
           <div className="doctor-card-detail-speciality">{speciality}</div>
           <div className="doctor-card-detail-experience">{experience} years experience</div>
-          <div className="doctor-card-detail-ratings">Ratings: {ratings} ★</div>
+          <div className="doctor-card-detail-ratings">Ratings: {ratings} </div>
         </div>
       </div>
 
@@ -71,7 +77,7 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
                 <h3>Appointment Booked!</h3>
                 {appointments.map((appointment) => (
                   <div className="bookedInfo" key={appointment.id}>
-                    <p>Name: {appointment.name}</p>
+                    <p>Patient Name: {appointment.name}</p>
                     <p>Phone Number: {appointment.phoneNumber}</p>
                     <p>Date: {appointment.appointmentDate}</p>
                     <p>Time: {appointment.appointmentTime}</p>

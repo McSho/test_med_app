@@ -1,36 +1,33 @@
 import React, { useState } from 'react';
 import './ReviewForm.css';
+import { useLocation } from 'react-router-dom';
 
 const ReviewForm = () => {
+  const location = useLocation(); // Access passed doctor name and speciality from notification
   const [reviews, setReviews] = useState([
-    { id: 1, doctorName: 'Dr. John Doe', speciality: 'Cardiology', feedback: '' },
-    { id: 2, doctorName: 'Dr. Jane Smith', speciality: 'Dermatology', feedback: '' },
+    { id: 1, doctorName: location.state?.doctorName || '', speciality: location.state?.speciality || '', feedback: '' },
   ]);
 
   const [showPopup, setShowPopup] = useState(false);
   const [currentDoctor, setCurrentDoctor] = useState(null);
   const [formData, setFormData] = useState({ name: '', review: '', rating: 0 });
 
-  // Function to handle feedback click and open form for the selected doctor
   const handleFeedbackClick = (doctor) => {
     setCurrentDoctor(doctor);
-    setShowPopup(true); // Show the popup
+    setShowPopup(true); // Show the popup when "Click Here" is clicked
   };
 
-  // Handle form field changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle rating change
   const handleRatingChange = (rating) => {
     setFormData({ ...formData, rating });
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Save the feedback, hide the popup, and disable the feedback button for the current doctor
+    // Save the feedback, hide the popup
     const updatedReviews = reviews.map((review) =>
       review.id === currentDoctor.id ? { ...review, feedback: formData.review } : review
     );
@@ -39,7 +36,6 @@ const ReviewForm = () => {
     setFormData({ name: '', review: '', rating: 0 });
   };
 
-  // Close the feedback popup
   const closePopup = () => {
     setShowPopup(false);
   };
@@ -61,13 +57,13 @@ const ReviewForm = () => {
           {reviews.map((review, index) => (
             <tr key={review.id}>
               <td>{index + 1}</td>
-              <td>{review.doctorName}</td>
-              <td>{review.speciality}</td>
+              <td>{review.doctorName || 'Doctor not available'}</td>
+              <td>{review.speciality || 'Speciality not available'}</td>
               <td>
-                <button
-                  className={`feedback-btn ${review.feedback ? 'disabled-btn' : ''}`} // Add disabled class
+                <button 
+                  className={`feedback-btn ${review.feedback ? 'disabled-btn' : ''}`} 
                   onClick={() => handleFeedbackClick(review)}
-                  disabled={!!review.feedback} // Disable if feedback is already given
+                  disabled={review.feedback !== ''}
                 >
                   {review.feedback ? 'Feedback Given' : 'Click Here'}
                 </button>
@@ -85,12 +81,12 @@ const ReviewForm = () => {
             <h2>Give Your Review</h2>
             <form onSubmit={handleSubmit} className="review-form">
               <label htmlFor="name">Name:</label>
-              <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+              <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
 
               <label htmlFor="review">Review:</label>
-              <textarea id="review" name="review" value={formData.review} onChange={handleChange} required />
-
-              <label>Rating:</label>
+              <textarea id="review" name="review" value={formData.review} onChange={handleChange} />
+               
+              <label>Rating:</label> 
               <div className="rating-selector">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <span

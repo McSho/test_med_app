@@ -28,8 +28,11 @@ import Notification from './Components/Notification/Notification';
 // Import CSS for Notification (make sure Notification.css exists in the correct path)
 import './Components/Notification/Notification.css';
 
-//Import the ReviewForm component
+// Import the ReviewForm component
 import ReviewForm from './Components/ReviewForm/ReviewForm';
+
+// Import the AppointmentForm component (if you use it elsewhere)
+import AppointmentForm from './Components/AppointmentForm/AppointmentForm';
 
 function App() {
   // State to track whether an appointment is booked
@@ -47,7 +50,13 @@ function App() {
   // Function to handle appointment cancellation
   const handleCancelAppointment = () => {
     localStorage.removeItem('doctorData'); // Remove appointment from localStorage
+    localStorage.removeItem('appointmentData'); // Remove any additional appointment data
     setAppointmentBooked(false); // Update state to hide the notification
+  };
+
+  // Function to handle when appointment is submitted
+  const handleAppointmentSubmit = () => {
+    setAppointmentBooked(true); // Show the notification
   };
 
   return (
@@ -69,13 +78,21 @@ function App() {
           
           <Route path="/instant-consultation" element={<InstantConsultation />} />
           <Route path="/find-doctor-search" element={<FindDoctorSearch />} />
-          <Route path="/reviews" element={<ReviewForm />} />
-
+          
           {/* Define the route for the SignUp component */}
           <Route path="/signup" element={<SignUp />} />
           
           {/* Route for Login component */}
           <Route path="/login" element={<Login />} />
+
+          {/* Route for the ReviewForm component */}
+          <Route path="/reviews" element={<ReviewForm />} />
+
+          {/* Route for AppointmentForm (pass handleAppointmentSubmit to show notification after booking) */}
+          <Route
+            path="/book-appointment"
+            element={<AppointmentForm doctorName="Dr. John Doe" doctorSpeciality="Dentist" onSubmit={handleAppointmentSubmit} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

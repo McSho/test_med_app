@@ -1,27 +1,26 @@
 .notification-card {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 20px; /* Move it to the bottom */
+    right: 20px; /* Align it to the right */
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    width: 400px;
+    z-index: 1000; /* Lower z-index to be behind the feedback form */
+    width: 300px;
     max-width: 80%;
-  }
-  
-  .notification-card__title {
+}
+
+.notification-card__title {
     font-size: 1.5em;
     margin-bottom: 10px;
-  }
-  
-  .notification-card p {
+}
+
+.notification-card p {
     margin: 5px 0;
-  }
-  
-  .notification-card button {
+}
+
+.cancel-btn {
     margin-top: 15px;
     background-color: #ff4d4d;
     color: white;
@@ -30,9 +29,23 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
-  }
-  
-  .notification-card button:hover {
+}
+
+.cancel-btn:hover {
     background-color: #ff3333;
-  }
-  
+}
+
+.review-btn {
+    background-color: #58d86a; /* Green color for Add Review button */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+}
+
+.review-btn:hover {
+    background-color: #4dbf5c;
+}
