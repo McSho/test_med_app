@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import './Navbar.css'; // Import CSS for styling
-import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate from react-router-dom for internal navigation
+import './Navbar.css'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import logo from '../../Assets/logo.jpg';
 
 function Navbar() {
-  const [auth, setAuth] = useState(null); // State to manage authentication and user info
+  const [auth, setAuth] = useState(null); 
   const navigate = useNavigate();
 
-  // Check if the user is authenticated by looking for the token in session storage
   useEffect(() => {
     const token = sessionStorage.getItem('auth-token');
     const userEmail = sessionStorage.getItem('email');
     if (token && userEmail) {
-      const userName = userEmail.split('@')[0]; // Extract the name from the email (before the "@" symbol)
+      const userName = userEmail.split('@')[0];
       setAuth({ token, userName });
     }
   }, []);
 
-  // Handle logout by clearing session storage and updating auth state
   const logout = () => {
-    sessionStorage.clear(); // Clear session storage on logout
-    setAuth(null); // Clear auth state
-    navigate('/'); // Navigate to home page
-    window.location.reload(); // Reload the page to reflect the changes
+    sessionStorage.clear(); 
+    setAuth(null);
+    navigate('/'); 
+    window.location.reload();
   };
 
   const handleClick = () => {
@@ -32,7 +30,6 @@ function Navbar() {
 
   return (
     <nav>
-      {/* Navigation logo section */}
       <div className="nav__logo">
         <a href="/">
           <div className="logo-container">
@@ -42,27 +39,25 @@ function Navbar() {
         </a>
       </div>
 
-      {/* Navigation icon section */}
       <div className="nav__icon" onClick={handleClick}>
         <i className="fa fa-times fa fa-bars"></i>
       </div>
 
-      {/* Unordered list for navigation links */}
       <ul className="nav__links active">
         <li className="link">
           <Link to="/">Home</Link>
         </li>
         <li className="link">
-          <Link to="/appointments">Appointments</Link>
+          <Link to="/appointments">Appointments</Link> {/* Updated to show Appointments */}
         </li>
         <li className="link">
-          <Link to="/find-doctor-search"> {/* New button for Find a Doctor */}
+          <Link to="/find-doctor-search">
             <button className="btn1">Find a Doctor</button>
           </Link>
         </li>
         <li className="link">
           <Link to="/instant-consultation">
-            <button className="btn1">Instant Booking</button> {/* Button for instant consultation */}
+            <button className="btn1">Instant Booking</button>
           </Link>
         </li>
 

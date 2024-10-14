@@ -1,0 +1,85 @@
+/* Appointments page styling */
+.appointments-page {
+    padding-top: 150px; /* Adds space below the navbar */
+    text-align: center;
+  }
+  /* Adjust the styling of the title */
+.appointments-page h2 {
+    font-size: 2em;  /* Ensure the font size is large enough */
+    color: #333;  /* Ensure the title has a visible color */
+    margin-bottom: 20px;  /* Add some space below the title */
+  }
+  
+  /* Container for all appointment cards */
+  .appointments-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centers all the cards horizontally */
+    gap: 20px; /* Adds space between cards */
+    margin: 0 auto;
+    max-width: 1200px; /* Restrict the width to avoid spreading the cards too much */
+  }
+  
+  /* Card styling (based on notification card styling) */
+  .doctor-card-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+  }
+  
+  /* Doctor details */
+  .doctor-card-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Ensures details and buttons are spaced well */
+    height: 100%; /* Ensure all cards have the same height */
+  }
+  
+  .doctor-card-detail-name {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .doctor-card-detail-speciality, .doctor-card-details p {
+    margin: 5px 0;
+  }
+  
+  /* Buttons (copied from Notification.css to keep the same look) */
+  .cancel-appointment-btn, .add-review-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  /* Cancel Appointment button styling */
+  .cancel-appointment-btn {
+    background-color: #f44336;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cancel-appointment-btn:hover {
+    background-color: #d63027;
+  }
+  
+  /* Add Review button styling */
+  .add-review-btn {
+    background-color: #58d86a;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-review-btn:hover {
+    background-color: #4fc65f;
+  }
+  

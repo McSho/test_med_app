@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ReviewForm.css';
 import { useLocation } from 'react-router-dom';
 
 const ReviewForm = () => {
   const location = useLocation(); // Access passed doctor name and speciality from notification
-  const [reviews, setReviews] = useState([
-    { id: 1, doctorName: location.state?.doctorName || '', speciality: location.state?.speciality || '', feedback: '' },
-  ]);
-
+  const [reviews, setReviews] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [currentDoctor, setCurrentDoctor] = useState(null);
   const [formData, setFormData] = useState({ name: '', review: '', rating: 0 });
+
+  useEffect(() => {
+    const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
+    const reviewData = storedAppointments.map((appointment, index) => ({
+      id: index + 1,
+      doctorName: appointment.doctorName,
+      speciality: appointment.speciality,
+      feedback: '',
+    }));
+    setReviews(reviewData);
+  }, []);
 
   const handleFeedbackClick = (doctor) => {
     setCurrentDoctor(doctor);
@@ -27,7 +35,6 @@ const ReviewForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Save the feedback, hide the popup
     const updatedReviews = reviews.map((review) =>
       review.id === currentDoctor.id ? { ...review, feedback: formData.review } : review
     );

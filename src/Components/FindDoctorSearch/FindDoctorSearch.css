@@ -77,9 +77,11 @@
     position: absolute;
     margin-top: 25px;
     margin-bottom: 20px;
-    box-shadow: rgba(0, 0, 0,.1) 0 - 1px 0 0 inset;
+    box-shadow: rgba(0, 0, 0, .1) 0 -1px 0 0 inset;
     border-radius: 5px;
-    height: 100vh;
+    height: auto; /* Change from 100vh to auto to stop it from covering the viewport */
+    max-height: 400px; /* Limit the height */
+    z-index: 1; /* Ensure it's not covering the navbar */
 }
 
 .doctor-search-box>img {

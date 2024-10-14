@@ -2,53 +2,37 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Notification.css';
 
-const formatTime = (time) => {
-  const [hours, minutes] = time.split(':').map(Number);
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-  const formattedHours = hours % 12 || 12;
-  return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-};
-
 const Notification = ({ onCancel }) => {
-  const [appointmentData, setAppointmentData] = useState(null);
-  const [doctorData, setDoctorData] = useState(null);
+  const [appointments, setAppointments] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedAppointmentData = JSON.parse(localStorage.getItem('appointmentData'));
-    const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
-
-    if (storedAppointmentData) {
-      setAppointmentData(storedAppointmentData);
-    }
-
-    if (storedDoctorData) {
-      setDoctorData({
-        name: storedDoctorData.doctorName,  // Use doctorName instead of just name
-        speciality: storedDoctorData.speciality,
-      });
+    const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
+    if (storedAppointments.length > 0) {
+      setAppointments(storedAppointments);
     }
   }, []);
 
-  const handleAddReview = () => {
-    navigate('/reviews', { state: { doctorName: doctorData.name, speciality: doctorData.speciality } });
+  const handleAddReview = (doctorName, speciality) => {
+    navigate('/reviews', { state: { doctorName, speciality } });
   };
 
-  if (!appointmentData || !doctorData) {
+  if (appointments.length === 0) {
     return null;
   }
 
   return (
-    <div className="notification-card notification-bottom-right">
-      <h3 className="notification-card__title">Appointment Details</h3>
-      <p><strong>Doctor:</strong> {doctorData.name}</p>
-      <p><strong>Speciality:</strong> {doctorData.speciality}</p>
-      <p><strong>Patient Name:</strong> {appointmentData.name}</p>
-      <p><strong>Phone Number:</strong> {appointmentData.phoneNumber}</p>
-      <p><strong>Date of Appointment:</strong> {appointmentData.appointmentDate}</p>
-      <p><strong>Time Slot:</strong> {formatTime(appointmentData.appointmentTime)}</p>
-      <button className="cancel-btn" onClick={onCancel}>Cancel Appointment</button>
-      <button className="review-btn" onClick={handleAddReview}>Add Review</button>
+    <div className="notifications-container">
+      {appointments.map((appointment, index) => (
+        <div key={index} className="notification-card">
+          <h3 className="notification-card__title">Appointment with Dr. {appointment.doctorName}</h3>
+          <p><strong>Speciality:</strong> {appointment.speciality}</p>
+          <p><strong>Date:</strong> {appointment.appointmentDate}</p>
+          <p><strong>Time:</strong> {appointment.appointmentTime}</p>
+          <button className="review-btn" onClick={() => handleAddReview(appointment.doctorName, appointment.speciality)}>Add Review</button>
+          <button className="cancel-btn" onClick={() => onCancel(index)}>Cancel Appointment</button>
+        </div>
+      ))}
     </div>
   );
 };

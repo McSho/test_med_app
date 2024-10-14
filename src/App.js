@@ -31,32 +31,30 @@ import './Components/Notification/Notification.css';
 // Import the ReviewForm component
 import ReviewForm from './Components/ReviewForm/ReviewForm';
 
-// Import the AppointmentForm component (if you use it elsewhere)
+// Import the AppointmentForm component
 import AppointmentForm from './Components/AppointmentForm/AppointmentForm';
 
+// Import the MyAppointments component
+import Appointments from './Components/Appointments/Appointments'; // Ensure you create and place this component
+
 function App() {
-  // State to track whether an appointment is booked
   const [appointmentBooked, setAppointmentBooked] = useState(false);
 
-  // Use useEffect to check localStorage on initial render
   useEffect(() => {
-    // Check if there is appointment data stored in localStorage
     const storedAppointment = localStorage.getItem('doctorData');
     if (storedAppointment) {
-      setAppointmentBooked(true); // Set the appointment booked to true if data exists
+      setAppointmentBooked(true);
     }
   }, []);
 
-  // Function to handle appointment cancellation
   const handleCancelAppointment = () => {
-    localStorage.removeItem('doctorData'); // Remove appointment from localStorage
-    localStorage.removeItem('appointmentData'); // Remove any additional appointment data
-    setAppointmentBooked(false); // Update state to hide the notification
+    localStorage.removeItem('doctorData');
+    localStorage.removeItem('appointmentData');
+    setAppointmentBooked(false);
   };
 
-  // Function to handle when appointment is submitted
   const handleAppointmentSubmit = () => {
-    setAppointmentBooked(true); // Show the notification
+    setAppointmentBooked(true);
   };
 
   return (
@@ -73,26 +71,21 @@ function App() {
 
         {/* Wrap Routes inside BrowserRouter */}
         <Routes>
-          {/* Define the route for the LandingPage component */}
           <Route path="/" element={<LandingPage />} />
-          
           <Route path="/instant-consultation" element={<InstantConsultation />} />
           <Route path="/find-doctor-search" element={<FindDoctorSearch />} />
-          
-          {/* Define the route for the SignUp component */}
           <Route path="/signup" element={<SignUp />} />
-          
-          {/* Route for Login component */}
           <Route path="/login" element={<Login />} />
-
-          {/* Route for the ReviewForm component */}
           <Route path="/reviews" element={<ReviewForm />} />
-
-          {/* Route for AppointmentForm (pass handleAppointmentSubmit to show notification after booking) */}
+          
+          {/* Route for AppointmentForm */}
           <Route
             path="/book-appointment"
             element={<AppointmentForm doctorName="Dr. John Doe" doctorSpeciality="Dentist" onSubmit={handleAppointmentSubmit} />}
           />
+          
+          {/* Route for MyAppointments */}
+          <Route path="/appointments" element={<Appointments />} /> {/* New Route for showing booked appointments */}
         </Routes>
       </BrowserRouter>
     </div>

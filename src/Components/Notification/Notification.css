@@ -1,14 +1,22 @@
-.notification-card {
+/* Container for multiple notifications */
+.notifications-container {
     position: fixed;
-    bottom: 20px; /* Move it to the bottom */
-    right: 20px; /* Align it to the right */
+    bottom: 20px; /* Position from the bottom of the screen */
+    right: 20px;  /* Position from the right of the screen */
+    display: flex; /* Display notifications in a row */
+    flex-direction: row; /* Make notifications appear side by side */
+    gap: 10px; /* Space between notifications */
+    z-index: 1000; /* Ensure notifications appear above other content */
+}
+
+/* Styling for individual notification cards */
+.notification-card {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000; /* Lower z-index to be behind the feedback form */
     width: 300px;
-    max-width: 80%;
+    text-align: center;
 }
 
 .notification-card__title {
@@ -20,32 +28,31 @@
     margin: 5px 0;
 }
 
-.cancel-btn {
-    margin-top: 15px;
-    background-color: #ff4d4d;
-    color: white;
-    padding: 10px 15px;
+.cancel-btn, .review-btn {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
+}
+
+.cancel-btn {
+    background-color: #f44336;
+    color: white;
 }
 
 .cancel-btn:hover {
-    background-color: #ff3333;
+    background-color: #d63027;
 }
 
 .review-btn {
-    background-color: #58d86a; /* Green color for Add Review button */
+    background-color: #58d86a;
     color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    margin-top: 10px;
 }
 
 .review-btn:hover {
-    background-color: #4dbf5c;
+    background-color: #4fc65f;
 }

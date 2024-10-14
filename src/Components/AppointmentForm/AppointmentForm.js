@@ -47,29 +47,18 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
       const appointmentDetails = {
         name,
         phoneNumber,
-        doctorName,  // Ensure proper doctor name
+        doctorName,
         speciality: doctorSpeciality,
         appointmentDate,
         appointmentTime,
         selectedSlot,
       };
 
-      // Correctly store doctor details
-      localStorage.setItem('doctorData', JSON.stringify({
-        doctorName,  // Store doctorName properly
-        speciality: doctorSpeciality,
-      }));
+      const existingAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
+      existingAppointments.push(appointmentDetails);
 
-      // Store appointment details properly
-      localStorage.setItem('appointmentData', JSON.stringify({
-        name,
-        phoneNumber,
-        appointmentDate,
-        appointmentTime,
-        selectedSlot,
-      }));
+      localStorage.setItem('appointments', JSON.stringify(existingAppointments));
 
-      // Trigger notification to appear after booking
       if (onSubmit) {
         onSubmit(appointmentDetails);
       }
