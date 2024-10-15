@@ -1,155 +1,153 @@
-// Import necessary hooks and modules
 import React, { useState } from 'react';
 import './Sign_Up.css';
-import { Link, useNavigate } from 'react-router-dom'; // Using Link for navigation
-import { API_URL } from '../../config'; // Assuming you have this configured properly
+import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config';
 
-const Sign_Up = () => {
-    // State variables for form inputs
+const SignUp = () => {
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [showerr, setShowerr] = useState(''); // For showing error messages
-    const navigate = useNavigate(); // For navigation
+    const [error, setError] = useState('');
+    const [nameError, setNameError] = useState(false);
+    const [phoneError, setPhoneError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const navigate = useNavigate();
 
-    // Function to handle form submission
-    const register = async (e) => {
-        e.preventDefault(); // Prevent page refresh
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let hasError = false;
 
-        // API call to register the user
-        const response = await fetch(`${API_URL}/api/auth/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                password: password,
-                phone: phone,
-            }),
-        });
-
-        const json = await response.json(); // Parse response
-
-        if (json.authtoken) {
-            // Save user data in session storage
-            sessionStorage.setItem('auth-token', json.authtoken);
-            sessionStorage.setItem('name', name);
-            sessionStorage.setItem('phone', phone);
-            sessionStorage.setItem('email', email);
-
-            // Redirect to home page
-            navigate('/');
-            window.location.reload(); // Reload the page
+        // Validation checks
+        if (name.length < 4) {
+            setNameError(true);
+            hasError = true;
         } else {
-            if (json.errors) {
-                // Show error messages if any
-                for (const error of json.errors) {
-                    setShowerr(error.msg);
-                }
-            } else {
-                setShowerr(json.error);
+            setNameError(false);
+        }
+
+        if (phone.length !== 10) {
+            setPhoneError(true);
+            hasError = true;
+        } else {
+            setPhoneError(false);
+        }
+
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            setEmailError(true);
+            hasError = true;
+        } else {
+            setEmailError(false);
+        }
+
+        if (password.length < 8) {
+            setPasswordError(true);
+            hasError = true;
+        } else {
+            setPasswordError(false);
+        }
+
+        if (hasError) return; // Stop submission if there are validation errors
+
+        try {
+            const response = await fetch(`${API_URL}/api/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, phone, email, password }),
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                setError(data.error[0].msg); // Show the first error message
+                return;
             }
+
+            // Successful registration logic here
+            navigate('/'); // Navigate to the home page or any other page
+
+        } catch (error) {
+            console.error('Error:', error);
+            setError('An error occurred during registration. Please try again.');
         }
     };
 
     return (
-        <div>
-        <div className="container" style={{ marginTop: '5%' }}>
-          {/* Page Title */}
-          <div className="login-text" style={{ marginTop: '20px', textAlign: 'left' }}>
+        <div className="container">
             <h2>Sign Up</h2>
-          </div>
-  
-            {/* Already a member? Login section */}
-            <div className="login-text">
-              Already a member? 
-              <span>
-                <Link to="/login" style={{ color: '#58d86a' }}>
-                  Login Here
-                </Link>
-              </span>
-            </div>
-            <br />
-  
-            {/* Sign-Up Form */}
-            <div className="signup-grid">
-              <div className="signup-form">
-                <form method="POST" onSubmit={register}>
-                  {/* Name Field */}
-                  <div className="form-group">
+            {error && <p className="error">{error}</p>}
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input 
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      type="text"
-                      name="name"
-                      id="name"
-                      className="form-control"
-                      placeholder="Enter your name"
-                      required
+                    <input
+                        value={name}
+                        type="text"
+                        onChange={(e) => setName(e.target.value)}
+                        name="name"
+                        id="name"
+                        className="form-control"
+                        placeholder="Enter your name"
+                        required
                     />
-                  </div>
-  
-                  {/* Phone Field */}
-                  <div className="form-group">
+                    {nameError && <p className="requirement">Name must be at least 4 characters long.</p>}
+                </div>
+                <div className="form-group">
                     <label htmlFor="phone">Phone</label>
-                    <input 
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      type="tel"
-                      name="phone"
-                      id="phone"
-                      className="form-control"
-                      placeholder="Enter your phone number"
-                      required
+                    <input
+                        value={phone}
+                        type="tel"
+                        onChange={(e) => setPhone(e.target.value)}
+                        name="phone"
+                        id="phone"
+                        className="form-control"
+                        placeholder="Enter your phone number"
+                        required
                     />
-                  </div>
-  
-                  {/* Email Field */}
-                  <div className="form-group">
+                    {phoneError && <p className="requirement">Phone number should be 10 digits long.</p>}
+                </div>
+                <div className="form-group">
                     <label htmlFor="email">Email</label>
-                    <input 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      type="email"
-                      name="email"
-                      id="email"
-                      className="form-control"
-                      placeholder="Enter your email"
-                      required
+                    <input
+                        value={email}
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        name="email"
+                        id="email"
+                        className="form-control"
+                        placeholder="Enter your email"
+                        required
                     />
-                    {showerr && <div className="err" style={{ color: 'red' }}>{showerr}</div>}
-                  </div>
-  
-                  {/* Password Field */}
-                  <div className="form-group">
+                    {emailError && <p className="requirement">Please enter a valid email address.</p>}
+                </div>
+                <div className="form-group">
                     <label htmlFor="password">Password</label>
-                    <input 
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      type="password"
-                      name="password"
-                      id="password"
-                      className="form-control"
-                      placeholder="Enter your password"
-                      required
+                    <input
+                        value={password}
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
+                        id="password"
+                        className="form-control"
+                        placeholder="Enter your password"
+                        required
                     />
-                  </div>
-  
-                  {/* Submit and Reset Buttons */}
-                  <div className="btn-group">
-                    <button type="submit" className="btn btn-primary mb-2">Sign Up</button>
-                    <button type="reset" className="btn btn-danger mb-2">Reset</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+                    {passwordError && <p className="requirement">Password must be at least 8 characters long.</p>}
+                </div>
+                <div className="btn-group">
+                    <button type="submit" className="btn btn-primary">Sign Up</button>
+                    <button type="button" className="btn btn-danger" onClick={() => {
+                        setName('');
+                        setPhone('');
+                        setEmail('');
+                        setPassword('');
+                        setError('');
+                    }}>Reset</button>
+                </div>
+            </form>
         </div>
-      );
-  };
-  
-  export default Sign_Up;
+    );
+};
+
+export default SignUp;

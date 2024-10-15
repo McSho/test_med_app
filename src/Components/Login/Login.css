@@ -53,3 +53,10 @@
     background-color: #F05656; /* Background color for danger buttons */
     color: #fff; /* Text color for danger buttons */
 }
+
+/* Styles for error messages */
+.error-text {
+    color: red; /* Red color for error messages */
+    font-size: 12px; /* Font size for error messages */
+    margin-top: 5px; /* Margin on top of error messages */
+}

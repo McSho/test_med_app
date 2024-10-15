@@ -8,6 +8,8 @@ const Login = () => {
   // State variables for email and password
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   // Navigation function from react-router-dom
   const navigate = useNavigate();
@@ -22,6 +24,25 @@ const Login = () => {
   // Function to handle login form submission
   const login = async (e) => {
     e.preventDefault(); // Prevent default form submission
+
+    // Validate input fields
+    setEmailError('');
+    setPasswordError('');
+
+    if (!email) {
+      setEmailError('Please enter your email.');
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError('Please enter a valid email address.');
+    }
+
+    if (!password) {
+      setPasswordError('Please enter your password.');
+    } else if (password.length < 8) {
+      setPasswordError('Password must be at least 8 characters long.');
+    }
+
+    // Return if there are validation errors
+    if (emailError || passwordError) return;
 
     // API call to login the user
     const res = await fetch(`${API_URL}/api/auth/login`, {
@@ -89,6 +110,7 @@ const Login = () => {
                   aria-describedby="helpId"
                   required
                 />
+                {emailError && <p className="error-text">{emailError}</p>}
               </div>
 
               {/* Password field */}
@@ -105,6 +127,7 @@ const Login = () => {
                   aria-describedby="helpId"
                   required
                 />
+                {passwordError && <p className="error-text">{passwordError}</p>}
               </div>
 
               {/* Submit button */}
