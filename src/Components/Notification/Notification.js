@@ -7,18 +7,29 @@ const Notification = ({ onCancel }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
-    if (storedAppointments.length > 0) {
-      setAppointments(storedAppointments);
+    const token = sessionStorage.getItem('auth-token');
+    if (!token) {
+      setAppointments([]);
+      return;
     }
+
+    const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
+    setAppointments(storedAppointments);
   }, []);
 
   const handleAddReview = (doctorName, speciality) => {
     navigate('/reviews', { state: { doctorName, speciality } });
   };
 
+  const handleCancel = (index) => {
+    onCancel(index); // Call the function passed from App to update appointments state
+    const updatedAppointments = appointments.filter((_, i) => i !== index);
+    setAppointments(updatedAppointments);
+    localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
+};
+
   if (appointments.length === 0) {
-    return null;
+    return <div>No notifications available.</div>;
   }
 
   return (
@@ -30,7 +41,7 @@ const Notification = ({ onCancel }) => {
           <p><strong>Date:</strong> {appointment.appointmentDate}</p>
           <p><strong>Time:</strong> {appointment.appointmentTime}</p>
           <button className="review-btn" onClick={() => handleAddReview(appointment.doctorName, appointment.speciality)}>Add Review</button>
-          <button className="cancel-btn" onClick={() => onCancel(index)}>Cancel Appointment</button>
+          <button className="cancel-btn" onClick={() => handleCancel(index)}>Cancel Appointment</button>
         </div>
       ))}
     </div>

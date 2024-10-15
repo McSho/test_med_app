@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Appointments.css'; // Corrected the path to DoctorCard.css
+import './Appointments.css'; // Keep your existing styles
 import { useNavigate } from 'react-router-dom';
 
 const Appointments = () => {
@@ -7,17 +7,20 @@ const Appointments = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Fetch appointments from localStorage when the component mounts
     const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
     setAppointments(storedAppointments);
   }, []);
 
   const handleCancelAppointment = (index) => {
+    // Filter out the canceled appointment
     const updatedAppointments = appointments.filter((_, i) => i !== index);
     setAppointments(updatedAppointments);
-    localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
+    localStorage.setItem('appointments', JSON.stringify(updatedAppointments)); // Update localStorage
   };
 
   const handleAddReview = (doctorName, speciality) => {
+    // Navigate to the review page with the selected doctor's info
     navigate('/reviews', { state: { doctorName, speciality } });
   };
 
@@ -45,12 +48,9 @@ const Appointments = () => {
                 >
                   Cancel Appointment
                 </button>
-
-
                 <button
                   className="add-review-btn" // Use the new CSS class
                   onClick={() => handleAddReview(appointment.doctorName, appointment.speciality)}
-                  
                 >
                   Add Review
                 </button>
