@@ -1,62 +1,48 @@
-/* Styles for the main container */
-.container {
-    max-width: 900px; /* Maximum width of the container */
-    margin: 0 auto; /* Center the container horizontally */
-    padding: 40px; /* Padding inside the container */
-    margin-top: 10%; /* Top margin of 10% */
+/* src/components/Login/Login.css */
+.login-container {
+    width: 300px;
+    margin: 120px auto; /* Adjusted to avoid overlap with navbar */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    position: relative;
+    z-index: 20; /* Higher z-index to ensure visibility */
 }
 
-/* Styles for form groups */
 .form-group {
-    margin-bottom: 20px; /* Bottom margin for spacing between form groups */
+    margin-bottom: 15px;
 }
 
-/* Styles for form group labels */
 .form-group label {
-    display: block; /* Make labels display as block elements */
-    margin-bottom: 5px; /* Bottom margin for spacing below labels */
-    font-weight: bold; /* Bold text for labels */
+    display: block;
+    margin-bottom: 5px;
 }
 
-/* Styles for form controls */
-.form-control {
-    width: 40%; /* Width of form controls */
-    padding: 8px; /* Padding inside form controls */
-    font-size: 16px; /* Font size of form controls */
-    border: 1px solid #ccc; /* Border around form controls */
-    border-radius: 4px; /* Border radius for rounded corners */
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-/* Styles for button groups */
-.btn-group {
-    margin-top: .0001px; /* Top margin for spacing above button groups */
-    margin-bottom: 20px; /* Bottom margin for spacing below button groups */
-}
-
-/* Styles for buttons */
-.btn {
-    padding: 10px 20px; /* Padding inside buttons */
-    font-size: 16px; /* Font size of buttons */
-    border: none; /* No border for buttons */
-    border-radius: 4px; /* Border radius for rounded corners on buttons */
-    cursor: pointer; /* Cursor style on hover for buttons */
-}
-
-/* Styles for primary buttons */
 .btn-primary {
-    background-color: #58d86a; /* Background color for primary buttons */
-    color: #fff; /* Text color for primary buttons */
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-/* Styles for danger (red) buttons */
-.btn-danger {
-    background-color: #F05656; /* Background color for danger buttons */
-    color: #fff; /* Text color for danger buttons */
+.btn-primary:hover {
+    background-color: #45a049;
 }
 
-/* Styles for error messages */
-.error-text {
-    color: red; /* Red color for error messages */
-    font-size: 12px; /* Font size for error messages */
-    margin-top: 5px; /* Margin on top of error messages */
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+    text-align: center;
 }

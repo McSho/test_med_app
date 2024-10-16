@@ -1,55 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import './Navbar.css'; 
-import { Link, useNavigate } from 'react-router-dom'; 
-import logo from '../../Assets/logo.jpg';
+// src/components/Navbar/Navbar.js
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../Assets/logo.jpg";
+import "./Navbar.css";
 
-function Navbar() {
-  const [auth, setAuth] = useState(null); 
+const Navbar = () => {
+  const [auth, setAuth] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = sessionStorage.getItem('auth-token');
-    const userEmail = sessionStorage.getItem('email');
+    const token = sessionStorage.getItem("auth-token");
+    const userEmail = sessionStorage.getItem("email");
     if (token && userEmail) {
-      const userName = userEmail.split('@')[0];
-      setAuth({ token, userName });
+      const userName = userEmail.split("@")[0];
+      setAuth({ token, userName, email: userEmail });
     }
   }, []);
 
   const logout = () => {
-    sessionStorage.clear(); 
+    sessionStorage.clear();
     setAuth(null);
-    navigate('/'); 
-    window.location.reload();
+    navigate("/");
   };
 
-  const handleClick = () => {
-    const navLinks = document.querySelector('.nav__links');
-    navLinks.classList.toggle('active');
+  const toggleDropdown = () => {
+    setShowDropdown((prev) => !prev);
   };
 
   return (
     <nav>
       <div className="nav__logo">
-        <a href="/">
+        <Link to="/">
           <div className="logo-container">
             <img src={logo} alt="StayHealthy Logo" className="nav-logo-image" />
             <p className="nav-logo-text">Stay Healthy</p>
           </div>
-        </a>
+        </Link>
       </div>
-
-      <div className="nav__icon" onClick={handleClick}>
-        <i className="fa fa-times fa fa-bars"></i>
-      </div>
-
-      <ul className="nav__links active">
-        <li className="link">
-          <Link to="/">Home</Link>
-        </li>
-        <li className="link">
-          <Link to="/appointments">Appointments</Link> {/* Updated to show Appointments */}
-        </li>
+      <ul className="nav__links">
+        <li className="link"><Link to="/">Home</Link></li>
+        <li className="link"><Link to="/appointments">Appointments</Link></li>
         <li className="link">
           <Link to="/find-doctor-search">
             <button className="btn1">Find a Doctor</button>
@@ -60,31 +51,30 @@ function Navbar() {
             <button className="btn1">Instant Booking</button>
           </Link>
         </li>
-
         {auth ? (
           <>
-            <li className="link">Welcome, {auth.userName}</li>
+            <li className="link profile-container" onClick={toggleDropdown}>
+              Welcome, {auth.userName}
+              {showDropdown && (
+                <div className="profile-dropdown active">
+                  <button onClick={() => navigate("/profile")}>My Profile</button>
+                  <button onClick={() => navigate("/reports")}>My Reports</button>
+                </div>
+              )}
+            </li>
             <li className="link">
               <button className="btn1" onClick={logout}>Logout</button>
             </li>
           </>
         ) : (
           <>
-            <li className="link">
-              <Link to="/signup">
-                <button className="btn1">Sign Up</button>
-              </Link>
-            </li>
-            <li className="link">
-              <Link to="/login">
-                <button className="btn1">Login</button>
-              </Link>
-            </li>
+            <li className="link"><Link to="/signup"><button className="btn1">Sign Up</button></Link></li>
+            <li className="link"><Link to="/login"><button className="btn1">Login</button></Link></li>
           </>
         )}
       </ul>
     </nav>
   );
-}
+};
 
 export default Navbar;

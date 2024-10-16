@@ -1,0 +1,48 @@
+/* ReportsLayout.css */
+
+.reports-container {
+  margin: 20px;
+  margin-top: 120px; /* Adjust this value based on the height of your navbar */
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reports-table th, 
+.reports-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.reports-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.reports-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.report-btn {
+  background-color: #58d86a; /* Button color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.report-btn:hover {
+  background-color: #9b59b6; /* Change color on hover */
+}

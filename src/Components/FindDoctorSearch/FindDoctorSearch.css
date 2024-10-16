@@ -171,6 +171,7 @@
 .finddoctor{
     /* height: 0 auto; */
     overflow: hidden;
+    margin-top: 120px;
 } 
 .finddoctor .mainimg{
     width: 312px;

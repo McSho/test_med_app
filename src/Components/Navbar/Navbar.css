@@ -1,202 +1,114 @@
-/** 
- * Following code has been commented with appropriate comments for your reference.
- * Styling for the Header Navbar
- */
+/* Navbar.css */
 
-/* Styling for the main navigation bar */
+/* Main navigation bar styling */
 nav {
     padding: 1.5rem;
     position: fixed;
-    top: 0%;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 
-/* Styling for the dropdown menu */
-.dropdown-menu {
+/* Styling for nav links */
+.nav__links {
+    list-style: none;
+    display: flex; /* Ensure links are displayed in a row */
+    gap: 15px; /* Space between links */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.link {
+    display: flex; /* Make each link a flex container */
+    align-items: center; /* Center align items */
+}
+
+/* Profile container */
+.profile-container {
+    position: relative;
+}
+
+/* Dropdown styling */
+.profile-dropdown {
     position: absolute;
     top: 100%;
     left: 0;
-    z-index: 1;
-    display: none;
-    min-width: 120px;
-    padding: 8px 0;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-}
-
-/* Styling for the user welcome message */
-.welcome-user {
-    position: relative;
-    cursor: pointer;
-}
-
-/* Display dropdown menu on hover */
-.welcome-user:hover .dropdown-menu {
-    display: block;
-}
-
-/* Styling for the items in the dropdown menu */
-.dropdown-menu li {
-    display: block;
     width: 150px;
-    padding: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 10px;
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* Styling for links in the dropdown menu */
-.dropdown-menu li a {
-    color: #333;
-    text-decoration: none;
-    transition: color 0.3s ease;
+/* Show dropdown when active */
+.profile-dropdown.active {
+    display: flex; /* Show dropdown when active */
 }
 
-/* Hover effect for links in the dropdown menu */
-.dropdown-menu li a:hover {
-    color: #2190ff;
-}
-
-/* Styling for the logo in the navbar */
-.nav__logo {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #0d213f;
+/* Button styling inside dropdown */
+.profile-dropdown button {
+    background-color: #2190ff;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-/* Styling for a span within the logo */
-.nav__logo span {
-    color: #3685fb;
+.profile-dropdown button:hover {
+    background-color: #1a78d6;
 }
 
-/* Styling for the icon in the navbar */
-.nav__icon {
-    display: none;
-    font-size: 2rem;
+/* General button styling */
+.btn1 {
+    background-color: transparent; /* Make the button transparent */
+    color: #000000; /* Set initial text color */
+    border: 2px solid #58d86a; /* Add a border with initial color */
+    padding: 8px 16px;
+    border-radius: 50px;
     cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
-/* Styling for the navigation links */
-.nav__links {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1rem;
-    font-weight: 500;
+/* Hover effect for the button */
+.btn1:hover {
+    background-color: #58d86a; /* Change background color on hover */
+    color: white; /* Change text color on hover */
 }
 
-/* Styling for individual links in the navigation */
-.link a {
-    padding: 0 1rem;
-    color: #0d213f;
-    transition: 0.3s;
-}
-
-/* Hover effect for individual links in the navigation */
-.link a:hover {
-    color: #58d86a;
-}
-
-/* Styling the logo container for image and text */
+/* Logo container styling */
 .logo-container {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Center align the image and text */
+    align-items: center;
 }
 
 /* Styling for the logo image */
 .nav-logo-image {
-    height: 80px; /* Increase the height of the logo */
-    width: auto;  /* Keep the aspect ratio */
+    height: 80px;
+    width: auto;
 }
 
 /* Styling for the text below the logo */
 .nav-logo-text {
-    font-size: 20px; /* Adjust the size of the text */
-    color: #58d86a;  /* Set the text color */
-    margin-top: 5px; /* Add space between the logo and the text */
-    text-align: center; /* Center-align the text */
+    font-size: 20px;
+    color: #58d86a;
+    margin-top: 5px;
+    text-align: center;
 }
 
 /* Media queries for mobile responsiveness */
 @media (max-width: 768px) {
-    .nav__logo {
-        margin-right: auto;
+    .profile-dropdown {
+        left: 0; /* Align it with the left edge for smaller screens */
+        width: 90%; /* Take most of the screen width on small devices */
     }
-
-    .nav__icon {
-        display: block;
-    }
-
-    .nav__links {
-        display: none;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-
-    .nav__links.active {
-        display: flex;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        margin: auto;
-        background-color: #fff;
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem 0;
-        border-radius: 0.5rem;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        z-index: 999;
-        animation: slideDown 0.5s ease-in-out; /* Animation effect */
-    }
-}
-
-/* Keyframes for slide down animation */
-@keyframes slideDown {
-    0% {
-        transform: translateY(-10px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* Button styles */
-.btn1 {
-    border: 2px solid #58d86a;
-    background-color: white;
-    color: black;
-    border-radius: 50px;
-}
-
-.btn1:hover {
-    background-color: #58d86a; /* Hover effect */
-    color: white; /* Hover effect */
-}
-
-.btn2 {
-    border: 2px solid #58d86a;
-    background-color: white;
-    color: black;
-    border-radius: 50px;
-    height: 30px;
-    display: flex; /* Align items and justify content */
-    align-items: center; /* Align items and justify content */
-    justify-content: center; /* Align items and justify content */
-    margin-top: 3px; /* Margin from top */
-}
-
-.btn2:hover {
-    background-color: #3685fb; /* Hover effect */
-    color: white; /* Hover effect */
 }

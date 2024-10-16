@@ -1,0 +1,59 @@
+/* src/components/ProfileCard/ProfileCard.css */
+
+.profile-container {
+    margin-top: 70px; /* Adjust this value based on the height of your navbar */
+    padding: 20px; /* Padding for aesthetics */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+}
+
+.profile-navigation {
+    display: flex;
+    justify-content: center; /* Center align the navigation buttons */
+    gap: 10px; /* Space between buttons */
+}
+
+.profile-details {
+    border: 1px solid #ddd; /* Add border for profile details */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px; /* Add padding */
+    width: 100%; /* Full width of input */
+    max-width: 400px; /* Set max-width for larger screens */
+    background-color: #fff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    margin-top: 20px; /* Space below navigation */
+    text-align: center; /* Center align text */
+}
+
+.profile-details h2 {
+    margin-bottom: 15px; /* Space below title */
+}
+
+.profile-details p {
+    margin: 8px 0; /* Space between paragraphs */
+    color: #555; /* Text color */
+}
+
+/* Button styling */
+button {
+    background-color: #58d86a; /* Consistent button color */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding */
+    cursor: pointer; /* Pointer on hover */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+button:hover {
+    background-color: #45a049; /* Darken on hover */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .profile-container {
+        margin-top: 80px; /* Adjust for smaller screens if needed */
+        width: 90%; /* Adjust width for mobile devices */
+    }
+}

@@ -1,18 +1,22 @@
+// src/App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from './Components/Navbar/Navbar';
-import LandingPage from './Components/Landing_Page/Landing_Page';
-import SignUp from './Components/Sign_Up/Sign_Up';
-import Login from './Components/Login/Login';
-import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch';
-import Notification from './Components/Notification/Notification';
-import ReviewForm from './Components/ReviewForm/ReviewForm';
-import AppointmentForm from './Components/AppointmentForm/AppointmentForm';
-import Appointments from './Components/Appointments/Appointments';
+import LandingPage from './Components/Landing_Page/Landing_Page'; // Ensure this component exists
+import SignUp from './Components/Sign_Up/Sign_Up'; // Ensure this component exists
+import Login from './Components/Login/Login'; // Ensure this component exists
+import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch'; // Ensure this component exists
+import Notification from './Components/Notification/Notification'; // Ensure this component exists
+import ReviewForm from './Components/ReviewForm/ReviewForm'; // Ensure this component exists
+import AppointmentForm from './Components/AppointmentForm/AppointmentForm'; // Ensure this component exists
+import Appointments from './Components/Appointments/Appointments'; // Ensure this component exists
+import InstantConsultation from "./Components/InstantConsultation/InstantConsultation"; // Ensure this component exists
+import ProfileCard from "./Components/ProfileCard/ProfileCard"; // Ensure this component exists
+import ReportsLayout from './Components/ReportsLayout/ReportsLayout';
 
 function App() {
   const [appointments, setAppointments] = useState([]);
-  
+
   useEffect(() => {
     // Fetch appointments from localStorage on component mount
     const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
@@ -43,9 +47,12 @@ function App() {
 
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/instant-consultation" element={<InstantConsultation />} />
           <Route path="/find-doctor-search" element={<FindDoctorSearch />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<ProfileCard />} /> {/* Profile route */}
+          <Route path="/reports" element={<ReportsLayout />} /> {/* Reports route */}
           <Route path="/reviews" element={<ReviewForm />} />
           <Route
             path="/book-appointment"
