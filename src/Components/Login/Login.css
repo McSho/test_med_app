@@ -1,14 +1,20 @@
-/* src/components/Login/Login.css */
+/* src/Components/Login/Login.css */
 .login-container {
     width: 300px;
-    margin: 120px auto; /* Adjusted to avoid overlap with navbar */
+    margin: 120px auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
     position: relative;
-    z-index: 20; /* Higher z-index to ensure visibility */
+    z-index: 20;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
 }
 
 .form-group {
@@ -18,6 +24,7 @@
 .form-group label {
     display: block;
     margin-bottom: 5px;
+    color: #555;
 }
 
 .form-group input {
@@ -28,21 +35,24 @@
 }
 
 .btn-primary {
-    background-color: #4caf50;
+    background-color: #58d86a;
     color: white;
     border: none;
     padding: 10px;
     width: 100%;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 .btn-primary:hover {
     background-color: #45a049;
 }
 
-.error-message {
-    color: red;
-    margin-bottom: 10px;
+.login-message {
+    margin-top: 10px;
     text-align: center;
+    color: #58d86a;
+    font-weight: bold;
 }

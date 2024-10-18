@@ -1,81 +1,69 @@
-// src/components/Login/Login.js
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../config";
-import "./Login.css"; // Assuming you have a CSS file for styling
+// src/Components/Login/Login.js
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config';
+import './Login.css';
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // For displaying error messages
+const Login = ({ setAuth }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginMessage, setLoginMessage] = useState(''); // State for displaying messages
   const navigate = useNavigate();
 
-  // Handle form submission for login
-  const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      // Make a POST request to the login API endpoint
       const response = await fetch(`${API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }), // Send email and password
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
       });
 
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
-        console.log("Login successful:", data);
-        
-        // Save the authentication token in session storage
-        sessionStorage.setItem("auth-token", data.authToken);
-        sessionStorage.setItem("email", email); // Store email for further use
-
-        alert("Login successful!"); // Display a success message
-
-        // Redirect to the home page or another protected route
-        navigate("/");
+        sessionStorage.setItem('auth-token', data.authToken);
+        sessionStorage.setItem('userName', data.userName);
+        setAuth({ token: data.authToken, userName: data.userName });
+        setLoginMessage('Login successful!'); // Display success message
+        setTimeout(() => {
+          navigate('/');
+        }, 2000); // Redirect to landing page after 2 seconds
       } else {
-        const errorData = await response.json();
-        console.error("Login failed:", errorData);
-        setErrorMessage(errorData.error || "Login failed. Please try again.");
+        setLoginMessage(data.error || 'Login failed');
       }
     } catch (error) {
-      console.error("Error during login:", error);
-      setErrorMessage("An error occurred. Please try again.");
+      console.error('Login failed:', error);
+      setLoginMessage('An error occurred. Please try again.');
     }
   };
 
   return (
     <div className="login-container">
       <h2>Login</h2>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="email">Email:</label>
+          <label>Email</label>
           <input
             type="email"
-            id="email"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password:</label>
+          <label>Password</label>
           <input
             type="password"
-            id="password"
+            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">Login</button>
+        <button type="submit" className="btn-primary">Login</button>
       </form>
-      <p>
-        Don't have an account? <a href="/signup">Sign up here</a>
-      </p>
+      {loginMessage && <p className="login-message">{loginMessage}</p>} {/* Display login message */}
     </div>
   );
 };

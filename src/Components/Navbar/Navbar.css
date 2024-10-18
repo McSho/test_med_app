@@ -1,114 +1,93 @@
 /* Navbar.css */
-
-/* Main navigation bar styling */
-nav {
-    padding: 1.5rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* Styling for nav links */
+.logo-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nav-logo-text {
+  margin-right: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-logo-image {
+  height: 50px;
+  width: auto;
+}
+
 .nav__links {
-    list-style: none;
-    display: flex; /* Ensure links are displayed in a row */
-    gap: 15px; /* Space between links */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
+  display: flex;
+  gap: 15px;
+  align-items: center; /* Ensure items align properly */
 }
 
 .link {
-    display: flex; /* Make each link a flex container */
-    align-items: center; /* Center align items */
+  display: flex;
+  align-items: center;
 }
 
-/* Profile container */
 .profile-container {
-    position: relative;
+  position: relative; /* Ensure dropdown is positioned relative to the button */
 }
 
-/* Dropdown styling */
-.profile-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 150px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 10px;
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Show dropdown when active */
-.profile-dropdown.active {
-    display: flex; /* Show dropdown when active */
-}
-
-/* Button styling inside dropdown */
-.profile-dropdown button {
-    background-color: #2190ff;
-    color: white;
-    border: none;
-    padding: 8px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.profile-dropdown button:hover {
-    background-color: #1a78d6;
-}
-
-/* General button styling */
 .btn1 {
-    background-color: transparent; /* Make the button transparent */
-    color: #000000; /* Set initial text color */
-    border: 2px solid #58d86a; /* Add a border with initial color */
-    padding: 8px 16px;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  background-color: transparent;
+  border: 2px solid #58d86a;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-/* Hover effect for the button */
 .btn1:hover {
-    background-color: #58d86a; /* Change background color on hover */
-    color: white; /* Change text color on hover */
+  background-color: #58d86a;
+  color: white;
 }
 
-/* Logo container styling */
-.logo-container {
-    display: flex;
-    align-items: center;
+.profile-dropdown {
+  position: absolute;
+  top: 100%; /* Align directly below the button */
+  right: 0; /* Align with the right edge of the button */
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+  z-index: 200; /* Ensure it stays on top of other elements */
 }
 
-/* Styling for the logo image */
-.nav-logo-image {
-    height: 80px;
-    width: auto;
+.profile-dropdown button {
+  background-color: #58d86a;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
 }
 
-/* Styling for the text below the logo */
-.nav-logo-text {
-    font-size: 20px;
-    color: #58d86a;
-    margin-top: 5px;
-    text-align: center;
-}
-
-/* Media queries for mobile responsiveness */
 @media (max-width: 768px) {
-    .profile-dropdown {
-        left: 0; /* Align it with the left edge for smaller screens */
-        width: 90%; /* Take most of the screen width on small devices */
-    }
+  .nav__links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
