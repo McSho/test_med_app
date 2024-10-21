@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
 import LandingPage from './Components/Landing_Page/Landing_Page';
 import SignUp from './Components/Sign_Up/Sign_Up';
@@ -18,14 +18,17 @@ function App() {
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    // Check for token in session storage to determine if user is logged in
+    console.log('Checking auth state from session storage...');
     const token = sessionStorage.getItem('auth-token');
     const userName = sessionStorage.getItem('userName');
+
     if (token && userName) {
       setAuth({ token, userName });
+      console.log('Auth state set:', { token, userName });
+    } else {
+      console.log('No valid auth state found.');
     }
 
-    // Load appointments from local storage on component mount
     const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
     setAppointments(storedAppointments);
   }, []);
@@ -45,8 +48,8 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar auth={auth} setAuth={setAuth} />
-      
-      {/* Conditionally render Notification if there are no appointments */}
+
+      {/* Conditional notification rendering */}
       {appointments.length === 0 && auth && (
         <Notification message="No notifications available" />
       )}
@@ -59,16 +62,25 @@ function App() {
         <Route path="/reports" element={<ReportsLayout />} />
         <Route path="/find-doctor-search" element={<FindDoctorSearch />} />
         <Route path="/instant-consultation" element={<InstantConsultation />} />
-        <Route path="/appointments" element={
-          <Appointments 
-            appointments={appointments} 
-            onCancel={handleCancelAppointment} 
-          />
-        } />
-        <Route path="/book-appointment" element={
-          <AppointmentForm onSubmit={handleAppointmentSubmit} />
-        } />
+        <Route
+          path="/appointments"
+          element={
+            <Appointments
+              appointments={appointments}
+              onCancel={handleCancelAppointment}
+            />
+          }
+        />
+        <Route
+          path="/book-appointment"
+          element={
+            <AppointmentForm onSubmit={handleAppointmentSubmit} />
+          }
+        />
         <Route path="/reviews" element={<ReviewForm />} />
+
+        {/* Fallback route */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );

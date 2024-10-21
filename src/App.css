@@ -1,5 +1,14 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent extra scrolling */
+}
+
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure it stretches to the full height */
 }
 
 .App-logo {
@@ -15,7 +24,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  flex: 1; /* Allow it to grow and fill space */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +44,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.navbar {
+  flex-shrink: 0; /* Prevent navbar from shrinking */
+  z-index: 100;
 }

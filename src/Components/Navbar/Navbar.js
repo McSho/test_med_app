@@ -52,6 +52,7 @@ const Navbar = ({ auth, setAuth }) => {
               <button
                 className="btn1 welcome-user"
                 onClick={() => setShowDropdown(!showDropdown)}
+                style={{ position: 'relative' }} // Ensure dropdown anchors to this button
               >
                 Welcome, {auth.userName}
               </button>

@@ -1,4 +1,3 @@
-// src/Components/Login/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../config';
@@ -7,10 +6,10 @@ import './Login.css';
 const Login = ({ setAuth }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loginMessage, setLoginMessage] = useState(''); // State for displaying messages
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch(`${API_URL}/api/auth/login`, {
@@ -22,30 +21,34 @@ const Login = ({ setAuth }) => {
       const data = await response.json();
       if (response.ok) {
         sessionStorage.setItem('auth-token', data.authToken);
-        sessionStorage.setItem('userName', data.userName);
-        setAuth({ token: data.authToken, userName: data.userName });
-        setLoginMessage('Login successful!'); // Display success message
-        setTimeout(() => {
-          navigate('/');
-        }, 2000); // Redirect to landing page after 2 seconds
+        sessionStorage.setItem('email', email);
+
+        const userResponse = await fetch(`${API_URL}/api/auth/user`, {
+          headers: { Authorization: `Bearer ${data.authToken}`, Email: email },
+        });
+        const userData = await userResponse.json();
+        sessionStorage.setItem('userName', userData.name);
+
+        setAuth({ token: data.authToken, userName: userData.name });
+        navigate('/');
       } else {
-        setLoginMessage(data.error || 'Login failed');
+        setError(data.error || 'Invalid login credentials');
       }
     } catch (error) {
       console.error('Login failed:', error);
-      setLoginMessage('An error occurred. Please try again.');
+      setError('Something went wrong. Please try again.');
     }
   };
 
   return (
     <div className="login-container">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      {error && <div className="error-message">{error}</div>}
+      <form onSubmit={handleLogin}>
         <div className="form-group">
           <label>Email</label>
           <input
             type="email"
-            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -55,15 +58,15 @@ const Login = ({ setAuth }) => {
           <label>Password</label>
           <input
             type="password"
-            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        <button type="submit" className="btn-primary">Login</button>
+        <button type="submit" className="btn-primary">
+          Login
+        </button>
       </form>
-      {loginMessage && <p className="login-message">{loginMessage}</p>} {/* Display login message */}
     </div>
   );
 };
