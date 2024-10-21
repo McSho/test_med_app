@@ -19,11 +19,11 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
 
     switch (slot) {
       case 'Morning':
-        return timeInMinutes >= 480 && timeInMinutes <= 720;  // 8am - 12pm
+        return timeInMinutes >= 480 && timeInMinutes <= 720; // 8am - 12pm
       case 'Afternoon':
-        return timeInMinutes > 720 && timeInMinutes <= 960;   // 12pm - 4pm
+        return timeInMinutes > 720 && timeInMinutes <= 960; // 12pm - 4pm
       case 'Evening':
-        return timeInMinutes > 960 && timeInMinutes <= 1200;  // 4pm - 8pm
+        return timeInMinutes > 960 && timeInMinutes <= 1200; // 4pm - 8pm
       default:
         return false;
     }
@@ -54,7 +54,8 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
         selectedSlot,
       };
 
-      const existingAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
+      const existingAppointments =
+        JSON.parse(localStorage.getItem('appointments')) || [];
       existingAppointments.push(appointmentDetails);
 
       localStorage.setItem('appointments', JSON.stringify(existingAppointments));
@@ -62,6 +63,17 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
       if (onSubmit) {
         onSubmit(appointmentDetails);
       }
+
+      // Clear form fields
+      setName('');
+      setPhoneNumber('');
+      setAppointmentDate('');
+      setAppointmentTime('');
+      setSelectedSlot('');
+      setErrors({});
+
+      // Reload the page after submission
+      window.location.reload();
     }
   };
 

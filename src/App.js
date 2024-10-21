@@ -49,9 +49,12 @@ function App() {
     <BrowserRouter>
       <Navbar auth={auth} setAuth={setAuth} />
 
-      {/* Conditional notification rendering */}
-      {appointments.length === 0 && auth && (
-        <Notification message="No notifications available" />
+      {/* Render Notification when authenticated */}
+      {auth && (
+        <Notification
+          appointments={appointments}
+          onCancel={handleCancelAppointment}
+        />
       )}
 
       <Routes>
@@ -78,8 +81,6 @@ function App() {
           }
         />
         <Route path="/reviews" element={<ReviewForm />} />
-
-        {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
