@@ -56,3 +56,32 @@ h2 {
     color: #58d86a;
     font-weight: bold;
 }
+
+.info-text {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.info-text a {
+  color: #58d86a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.info-text a:hover {
+  text-decoration: underline;
+}
+
+.success-message {
+  color: green;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}

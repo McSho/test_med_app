@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { API_URL } from '../../config';
-import './Login.css';
+import './Login.css'; // Import CSS for styling
 
 const Login = ({ setAuth }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false); // Success state for login
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -30,7 +31,12 @@ const Login = ({ setAuth }) => {
         sessionStorage.setItem('userName', userData.name);
 
         setAuth({ token: data.authToken, userName: userData.name });
-        navigate('/');
+
+        // Set success message and navigate after a short delay
+        setSuccess(true);
+        setTimeout(() => {
+          navigate('/');
+        }, 3000); // 3-second delay before redirecting
       } else {
         setError(data.error || 'Invalid login credentials');
       }
@@ -44,6 +50,11 @@ const Login = ({ setAuth }) => {
     <div className="login-container">
       <h2>Login</h2>
       {error && <div className="error-message">{error}</div>}
+      {success && (
+        <div className="success-message">
+          Login successful! Redirecting to homepage...
+        </div>
+      )}
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label>Email</label>
@@ -66,6 +77,9 @@ const Login = ({ setAuth }) => {
         <button type="submit" className="btn-primary">
           Login
         </button>
+        <div className="info-text">
+          Not a member? <Link to="/signup">Sign up here</Link>
+        </div>
       </form>
     </div>
   );
