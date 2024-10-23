@@ -6,8 +6,8 @@ import './Login.css'; // Import CSS for styling
 const Login = ({ setAuth }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false); // Success state for login
+  const [error, setError] = useState(null); // Error state for handling issues
+  const [success, setSuccess] = useState(false); // State for showing success message
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -32,11 +32,10 @@ const Login = ({ setAuth }) => {
 
         setAuth({ token: data.authToken, userName: userData.name });
 
-        // Set success message and navigate after a short delay
-        setSuccess(true);
+        setSuccess(true); // Show success message
         setTimeout(() => {
-          navigate('/');
-        }, 3000); // 3-second delay before redirecting
+          navigate('/'); // Redirect to homepage after 3 seconds
+        }, 3000);
       } else {
         setError(data.error || 'Invalid login credentials');
       }
@@ -50,11 +49,7 @@ const Login = ({ setAuth }) => {
     <div className="login-container">
       <h2>Login</h2>
       {error && <div className="error-message">{error}</div>}
-      {success && (
-        <div className="success-message">
-          Login successful! Redirecting to homepage...
-        </div>
-      )}
+      {success && <div className="success-message">Login successful! Redirecting to homepage...</div>}
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label>Email</label>

@@ -18,15 +18,11 @@ function App() {
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    console.log('Checking auth state from session storage...');
     const token = sessionStorage.getItem('auth-token');
     const userName = sessionStorage.getItem('userName');
 
     if (token && userName) {
       setAuth({ token, userName });
-      console.log('Auth state set:', { token, userName });
-    } else {
-      console.log('No valid auth state found.');
     }
 
     const storedAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
@@ -48,8 +44,6 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar auth={auth} setAuth={setAuth} />
-
-      {/* Render Notification when authenticated */}
       {auth && (
         <Notification
           appointments={appointments}
@@ -59,7 +53,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/signup" element={<SignUp setAuth={setAuth} />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login setAuth={setAuth} />} />
         <Route path="/profile" element={<ProfileCard />} />
         <Route path="/reports" element={<ReportsLayout />} />

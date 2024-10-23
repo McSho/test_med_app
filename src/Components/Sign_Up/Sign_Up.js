@@ -1,19 +1,60 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../config';
-import './Sign_Up.css'; // Import the CSS
+import './Sign_Up.css'; // Import CSS
 
-const SignUp = ({ setAuth }) => {
+const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
-  const [error, setError] = useState(null); // Error state for handling issues
-  const [success, setSuccess] = useState(false); // State for showing success message
+
+  const [errors, setErrors] = useState({}); // Store individual field errors
+  const [success, setSuccess] = useState(false);
+
   const navigate = useNavigate();
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
+
+    if (!name) {
+      newErrors.name = 'Name is required.';
+      isValid = false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      newErrors.email = 'Email is required.';
+      isValid = false;
+    } else if (!emailPattern.test(email)) {
+      newErrors.email = 'Invalid email format.';
+      isValid = false;
+    }
+
+    if (password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters long.';
+      isValid = false;
+    }
+
+    const phonePattern = /^\d{10,15}$/;
+    if (!phone) {
+      newErrors.phone = 'Phone number is required.';
+      isValid = false;
+    } else if (!phonePattern.test(phone)) {
+      newErrors.phone = 'Phone number must be 10-15 digits long.';
+      isValid = false;
+    }
+
+    setErrors(newErrors); // Update state with the new errors
+    return isValid;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
+
     try {
       const response = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
@@ -23,29 +64,23 @@ const SignUp = ({ setAuth }) => {
 
       const data = await response.json();
       if (response.ok) {
-        sessionStorage.setItem('auth-token', data.authToken);
-        sessionStorage.setItem('userName', name);
-        setAuth({ token: data.authToken, userName: name });
-
-        // Set success message and redirect after a short delay
         setSuccess(true);
         setTimeout(() => {
-          navigate('/');
-        }, 3000); // 3 seconds delay before redirect
+          navigate('/login');
+        }, 3000);
       } else {
-        setError(data.error || 'Registration failed');
+        setErrors({ form: data.error || 'Registration failed' });
       }
     } catch (error) {
       console.error('Signup failed:', error);
-      setError('Something went wrong. Please try again.');
+      setErrors({ form: 'Something went wrong. Please try again.' });
     }
   };
 
   return (
     <div className="signup-container">
       <h2>Sign Up</h2>
-      {error && <div className="error-message">{error}</div>}
-      {success && <div className="success-message">Sign up successful! Redirecting...</div>}
+      {success && <div className="success-message">Sign up successful! Redirecting to login...</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Name</label>
@@ -56,7 +91,9 @@ const SignUp = ({ setAuth }) => {
             onChange={(e) => setName(e.target.value)}
             required
           />
+          {errors.name && <span className="error-text">{errors.name}</span>}
         </div>
+
         <div className="form-group">
           <label>Email</label>
           <input
@@ -66,7 +103,9 @@ const SignUp = ({ setAuth }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+          {errors.email && <span className="error-text">{errors.email}</span>}
         </div>
+
         <div className="form-group">
           <label>Password</label>
           <input
@@ -76,7 +115,9 @@ const SignUp = ({ setAuth }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          {errors.password && <span className="error-text">{errors.password}</span>}
         </div>
+
         <div className="form-group">
           <label>Phone</label>
           <input
@@ -86,7 +127,11 @@ const SignUp = ({ setAuth }) => {
             onChange={(e) => setPhone(e.target.value)}
             required
           />
+          {errors.phone && <span className="error-text">{errors.phone}</span>}
         </div>
+
+        {errors.form && <div className="error-text">{errors.form}</div>}
+
         <button type="submit" className="btn-primary">
           Sign Up
         </button>

@@ -1,59 +1,100 @@
 /* src/components/ProfileCard/ProfileCard.css */
 
 .profile-container {
-    margin-top: 70px; /* Adjust this value based on the height of your navbar */
-    padding: 20px; /* Padding for aesthetics */
+    margin-top: 70px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center content horizontally */
-}
-
-.profile-navigation {
-    display: flex;
-    justify-content: center; /* Center align the navigation buttons */
-    gap: 10px; /* Space between buttons */
+    align-items: center;
 }
 
 .profile-details {
-    border: 1px solid #ddd; /* Add border for profile details */
-    border-radius: 8px; /* Rounded corners */
-    padding: 16px; /* Add padding */
-    width: 100%; /* Full width of input */
-    max-width: 400px; /* Set max-width for larger screens */
-    background-color: #fff; /* White background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
-    margin-top: 20px; /* Space below navigation */
-    text-align: center; /* Center align text */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    text-align: left; /* Align text to the left */
 }
 
 .profile-details h2 {
-    margin-bottom: 15px; /* Space below title */
+    text-align: center; /* Center title */
+    margin-bottom: 15px;
 }
 
-.profile-details p {
-    margin: 8px 0; /* Space between paragraphs */
-    color: #555; /* Text color */
+.form-group {
+    display: flex;
+    align-items: center; /* Vertically align label and input */
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
-/* Button styling */
+.form-group label {
+    flex: 1; /* Label takes up some space */
+    margin-right: 10px; /* Space between label and input */
+    font-weight: bold; /* Bold labels for better readability */
+}
+
+.form-group input,
+.form-group p {
+    flex: 2; /* Input/Value takes up more space */
+    margin: 0; /* Remove extra margin from paragraphs */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: #58d86a;
+    outline: none;
+}
+
 button {
-    background-color: #58d86a; /* Consistent button color */
-    color: white; /* White text */
-    border: none; /* Remove border */
-    padding: 10px 20px; /* Padding */
-    cursor: pointer; /* Pointer on hover */
-    border-radius: 4px; /* Rounded corners */
-    transition: background-color 0.3s; /* Smooth transition */
+    background-color: #58d86a;
+    color: white;
+    border: none;
+    padding: 8px 16px; /* Smaller button size */
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin-top: 10px; /* Add space above button */
+    align-self: flex-end; /* Align button to the right */
 }
 
 button:hover {
-    background-color: #45a049; /* Darken on hover */
+    background-color: #45a049;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.error-message,
+.success-message {
+    margin-top: 10px;
+    font-size: 0.875rem;
+}
+
+.error-message {
+    color: red;
+}
+
+.success-message {
+    color: green;
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .profile-container {
-        margin-top: 80px; /* Adjust for smaller screens if needed */
-        width: 90%; /* Adjust width for mobile devices */
+        margin-top: 80px;
+        width: 90%;
     }
 }
